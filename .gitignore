@@ -1,0 +1,69 @@
+# ---- MATLAB / Simulink build artefacts -------------------------------------
+slprj/
+*.slxc
+*.slx.r*
+*.autosave
+*.asv
+*.mex*
+*.o
+*.obj
+codegen/
+work/
+
+# ---- Generated simulation outputs (regenerate with `run_all`) --------------
+results/*.mat
+models/*.slx
+
+# ---- Python -----------------------------------------------------------------
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+
+# ---- Personal / author identity (never publish this) ------------------------
+# The paper build tools read the author's real name and contact address from
+# docs/paper/build/author_info.py. It is intentionally absent from this
+# repository: without it the generators fall back to an author-free build,
+# which is exactly what the paper published here uses.
+docs/paper/build/author_info.py
+author_info.py
+
+# ---- Generated documents (regenerate with tools/) ---------------------------
+tools/word/selftest.docx
+tools/word/selftest_edge.docx
+tools/word/selftest.pdf
+tools/word/report_demo.docx
+tools/word/report_demo_fig.png
+tools/word/selftest_fig.png
+tools/word/selftest_fig2.png
+tools/pdf/_glyph_report.txt
+tools/pdf/_verify_pdf.txt
+tools/pdf/_extracted.txt
+tools/pdf/render_demo.pdf
+docs/**/*.aux
+docs/**/*.log
+docs/**/*.out
+docs/**/*.toc
+
+# ---- LaTeX build artefacts --------------------------------------------------
+*.aux
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.synctex.gz
+*.xdv
+
+# ---- Keep the tool modules that start with an underscore -------------------
+!tools/pdf/_pdf_gen.py
+!tools/pdf/_render_pdf.py
+
+# ---- OS / editor ------------------------------------------------------------
+.DS_Store
+Thumbs.db
+desktop.ini
+*.swp
+*~
+.idea/
+.vscode/

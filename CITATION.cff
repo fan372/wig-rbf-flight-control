@@ -1,0 +1,38 @@
+cff-version: 1.2.0
+message: "If you use this software or the accompanying models in your research, please cite it as below."
+title: "WIG-RBF-Flight-Control: RBF neural-network adaptive longitudinal flight control for a wing-in-ground-effect UAV"
+abstract: >-
+  MATLAB/Simulink implementation of a seventh-order nonlinear longitudinal model of a small
+  wing-in-ground-effect (WIG) UAV with a ground-effect factor correction, a quantitative
+  decomposition of the pitch-moment height derivative, a three-loop RBF neural-network adaptive
+  controller, a Lyapunov uniform-ultimate-boundedness proof, a discrete-time adaptation
+  stability criterion, and the complete set of simulation scripts that reproduce every figure
+  and log in this repository.
+type: software
+version: "1.0.0"
+date-released: "2026-09-26"
+license: MIT
+repository-code: "https://github.com/fan372/wig-rbf-flight-control"
+keywords:
+  - wing-in-ground effect
+  - WIG
+  - ground effect
+  - flight control
+  - RBF neural network
+  - adaptive control
+  - dynamic surface control
+  - height stability
+  - MATLAB
+  - Simulink
+authors:
+  - name: "fan372"
+    website: "https://github.com/fan372"
+preferred-citation:
+  type: conference-paper
+  title: "RBF Neural-Network Adaptive Longitudinal Flight Control of a Wing-in-Ground-Effect UAV: Height-Instability Mechanism and Simulation Validation"
+  authors:
+    - name: "fan372"
+      website: "https://github.com/fan372"
+  collection-title: "<CONFERENCE NAME>"
+  year: 2026
+  notes: "See docs/paper/ for the paper (Chinese Word and English IEEE LaTeX). The copy in this repository has the author block removed."

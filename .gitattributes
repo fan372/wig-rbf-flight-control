@@ -1,0 +1,28 @@
+# 统一按 LF 换行提交，避免 Windows / Linux 之间的无谓 diff
+* text=auto eol=lf
+
+# MATLAB 源码
+*.m      text eol=lf
+*.slx    binary
+*.mat    binary
+
+# Python
+*.py     text eol=lf
+
+# 文档
+*.md     text eol=lf
+*.tex    text eol=lf
+*.cff    text eol=lf
+
+# 图片与 PDF 视为二进制（不做 diff、不做换行转换）
+*.png    binary
+*.jpg    binary
+*.jpeg   binary
+*.pdf    binary
+*.docx   binary
+*.xlsx   binary
+
+# 语言统计时排除生成物
+results/log_*.txt   linguist-generated
+figures/*.png       linguist-generated
+docs/**/*.pdf       linguist-documentation
