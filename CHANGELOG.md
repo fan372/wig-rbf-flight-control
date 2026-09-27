@@ -42,32 +42,21 @@ instability and RBF neural-network adaptive longitudinal control for a small WIG
 
 ### Fixed
 
-Correctness issues found while preparing the public release. All are reproduced from, and
-verified against, the logs now shipped in `results/`.
+Corrections made during the final review pass. Each one is reproducible from the logs in
+`results/`.
 
-* **Tables and long equations overflowed the IEEE two-column measure.** The worst tables were
-  112 pt too wide (the column is only about 252 pt), so the Monte-Carlo table ran into the text of
-  the neighbouring column, and several display equations crossed the column rule. Fixed by
-  measuring every table's *natural* width with LaTeX itself (`\wigmeasure` writes it to the log,
-  `tools/measure_tables.py` collects it into `table_widths.json`) and then choosing per table
-  between a single-column float and a full-width `table*`, with an `adjustbox` `max width`
-  safety net. Long equations are wrapped in the same net. All three English papers now compile
-  with **zero overfull boxes**.
-* **Duplicate subsection letters in the English papers.** The content model prefixes each
-  subsection with a letter for the Word build, but IEEEtran numbers `\subsection` automatically,
-  which produced headings such as "D.  D. Airspeed Loop". The LaTeX renderer now strips the
-  hand-written letter.
-* **Hand-rolled table and figure captions were 1.85 pt too wide.** They were typeset in a
-  `minipage` of exactly `\columnwidth`; they now use `\caption`, letting IEEEtran number and set
-  them natively.
-* **The English papers embedded figures with Chinese axis labels.** All 12 figures are now also
-  generated with English labels by `src/run_figs_en.m` (language switch in `src/wig_plot_style.m`,
-  helper `src/wig_lbl.m`) into `figures_en/`, which the English build uses. The Chinese figures in
-  `figures/` are byte-identical to before, so the Chinese documents are unaffected.
-* **English perturbation, gust and Monte-Carlo tables contained Chinese row labels**, which
-  pdfLaTeX cannot typeset: the tables came out with an empty first column. The labels are now
-  mapped explicitly in `content_en.py`, and any unmapped CJK string raises an error instead of
-  reaching the PDF.
+* **Layout of the English papers.** Several tables were wider than the IEEE two-column measure
+  and ran into the neighbouring column, and some display equations crossed the column rule. The
+  tables are now sized from their measured natural width — `tools/measure_tables.py` compiles the
+  document and records it in `table_widths.json` — so each one is placed either in a single column
+  or as a full-width `table*`. Captions now use `\caption` instead of a hand-built box, and
+  IEEEtran's automatic subsection letters are no longer duplicated by the ones in the content
+  model. The three English papers build with zero overfull boxes.
+* **Chinese labels leaking into the English papers.** The LaTeX tables carried the Chinese row
+  labels from the log, which pdfLaTeX cannot typeset, so the first column came out empty; the
+  figures had Chinese axis labels. Both are now generated in English as well
+  (`content_en.py` label map, `src/run_figs_en.m` into `figures_en/`). The Chinese figures and
+  documents are unchanged.
 * **Classical phugoid damping formula** (`run_00_stab_body.m`, `run_analysis_body.m`): the
   damping ratio was computed as `D/(m*V^2*omega_p)`, which is dimensionally inconsistent and
   under-reported the damping by a factor of `V` (0.0029 instead of 0.0527). Corrected to the
@@ -102,5 +91,3 @@ verified against, the logs now shipped in `results/`.
 * Documentation no longer claims an anti-windup path through `wig_dynamics`; the unused
   `p.ctrl.k_aw` field was removed. Anti-windup is implemented inside `wig_ctrl_update.m` by
   freezing the adaptation while an actuator is saturated.
-* `README.md` was rewritten; every file count, figure count and runtime figure in it is verified
-  against the repository contents.

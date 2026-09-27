@@ -21,12 +21,12 @@ prose by hand. `metrics.json` is in turn produced by parsing the MATLAB logs in
              build_public.py -- (same content, author block emptied) ->  ../*
 ```
 
-## About the paper shipped here
+## About the copy in `../`
 
-The copy in `../` is the **extended version with the author block removed**, so that this public
-repository carries the technical content without personal contact details. The full submission
-set (Chinese Word and English IEEE LaTeX, each in three lengths, with author details) is built by
-`build_all.py` and kept outside version control.
+`build_all.py` produces the full submission set; `build_public.py` rebuilds the same content
+with the author block left empty and writes it to `../`. Only that version is committed, so the
+repository stays free of personal contact details. The body text, equations, tables, figures and
+reference list are identical between the two.
 
 ## Files
 

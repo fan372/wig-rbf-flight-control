@@ -26,10 +26,10 @@ modelling, height-instability mechanism and simulation validation.*
 本仓库给出完整的**建模 → 机理分析 → 控制器设计 → 仿真验证**链路，并且：
 
 * 每一张图、每一个日志都能由 `run_all` 从零复现；
-* 论文与文档中的**每一个数字都取自 `results/log_*.txt`**，不存在"手工填进去的数"；
-* 附带一个 **MATLAB 单元测试套件**（`tests/run_tests.m`），校验的是理论所依赖的
-  **不变量**（配平残差、$\partial M/\partial h$ 分解闭合性、投影算子有界性、
-  采样闭环极点等），而不是"跑一遍不报错"。
+* 论文与文档中的数字统一从 `results/log_*.txt` 提取，改模型就重新生成，不手工誊抄；
+* 附带 MATLAB 单元测试（`tests/run_tests.m`），覆盖理论所依赖的不变量：
+  配平残差、$\partial M/\partial h$ 分解的闭合性、投影算子的权值有界性、
+  采样闭环极点等。
 
 ---
 
@@ -182,7 +182,6 @@ wig-rbf-flight-control/
 ├── results/                     全部 UTF-8 文本日志
 ├── docs/
 │   ├── paper/                   论文（完整版：中文 Word/PDF + 英文 IEEE LaTeX/PDF）
-│   │                            ⚠ 公开版已去掉作者署名，只保留正文与图表
 │   ├── report/                  技术报告（Word + PDF）
 │   └── tutorial/                零基础详解（PDF + Markdown 源）
 ├── tools/word/                  .docx 生成工具链（纯 Python 标准库 + OMML）
@@ -228,8 +227,7 @@ RBF 节点数与基函数性质、投影算子的权值有界性、
 ## 引用
 
 见 [`CITATION.cff`](CITATION.cff)。若在研究中使用了本仓库的模型或代码，
-请同时引用配套论文（[`docs/paper/`](docs/paper/)，英文版 12 页 / 中文版 21 页，均为完整版）。
-公开仓库中的论文副本已隐去作者署名与联系方式，正文、公式、图表与参考文献与投稿版一致。
+请同时引用配套论文（[`docs/paper/`](docs/paper/)，英文版 12 页 / 中文版 21 页）。
 
 ## 许可证
 
@@ -247,12 +245,11 @@ RBF 节点数与基函数性质、投影算子的权值有界性、
 
 ## English
 
-**What this repository is.** A complete, reproducible study of the longitudinal flight dynamics
-and control of a small wing-in-ground-effect (WIG) UAV with a 2.40 m span, 12 kg mass and a
-cruising height of only 0.05–0.50 m, so that its whole envelope lies inside the strong
-ground-effect regime.
+This repository contains a reproducible study of the longitudinal flight dynamics and control of
+a small wing-in-ground-effect (WIG) UAV with a 2.40 m span, 12 kg mass and a cruising height of
+only 0.05–0.50 m, so that its whole envelope lies inside the strong ground-effect regime.
 
-**Two stability problems, quantified here.**
+Two stability problems show up, and both are quantified here.
 
 1. *Negative height static stability.* The pitch-moment height derivative
    $\partial M/\partial h$ is strictly positive over the entire envelope
@@ -265,7 +262,7 @@ ground-effect regime.
    switching the ground effect off returns the mode to neutral stability, proving that the
    instability is of ground-effect origin.
 
-**Controller.** A three-loop cascade: a proportional altitude outer loop with height-rate
+The controller is a three-loop cascade: a proportional altitude outer loop with height-rate
 damping, a dynamic-surface attitude inner loop with dynamic inversion, and an airspeed loop.
 Two RBF networks (75 nodes on $[\alpha,q,h]$ for the moment channel; 64 nodes on $[\alpha,V,h]$
 for the drag channel) estimate the mismatch online, backed by tanh robust terms and a
@@ -273,16 +270,16 @@ projection operator. **No lift-channel network is needed**: the kinematic identi
 $\gamma=\theta-\alpha$ makes $\theta_d=\gamma_c+\alpha$ compensate lift errors automatically.
 Closed-loop uniform ultimate boundedness is proved by a Lyapunov argument.
 
-**Discrete-time design rule derived here.** For the 200 Hz forward-Euler adaptation law,
-linearising the error/weight two-state system gives
+The same analysis also yields a discrete-time design rule. For the 200 Hz forward-Euler
+adaptation law, linearising the error/weight two-state system gives
 $T_s\Gamma_i\|\phi_i\|^2 < k_i$. This explains why the moment-channel gain (0.005) is three
 orders of magnitude smaller than the drag-channel gain (3.0): the dimensional factors of the
 two regression vectors differ by about 795.
 
 **Key results.** Height-tracking RMS error reduced from 0.1938 m to 0.0100 m (a factor of 19.4);
 Monte-Carlo pass rate raised from 40.0 % to 86.7 % over 60 random parameter samples; safe flight
-at 0.06 m under measurement noise and in moderate gusts. The failure boundary is reported
-honestly: in a severe 3.0 m/s vertical gust the vehicle still touches down.
+at 0.06 m under measurement noise and in moderate gusts. The boundary is also visible in the data:
+in a severe 3.0 m/s vertical gust the vehicle still touches down.
 
 **Quick start.**
 
@@ -296,6 +293,4 @@ run_tests        % invariant unit tests       (cd ../tests)
 All documentation numbers are extracted from `results/log_*.txt`; every figure and log is
 reproducible from scratch with `run_all`. See [`docs/paper/`](docs/paper/) for the paper:
 the extended version in both languages (English IEEE two-column, 12 pages; Chinese
-single-column, 21 pages). The copy shipped in this repository has the author block removed;
-the body text, equations, tables, figures and references are identical to the submitted
-manuscript.
+single-column, 21 pages).

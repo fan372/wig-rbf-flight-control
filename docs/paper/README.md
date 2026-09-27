@@ -10,12 +10,7 @@ The technical paper accompanying this repository, in two languages:
 | `wig-rbf-flight-control-paper-en.pdf` | English | compiled, 12 pages |
 | `figures/` | -- | the 12 figures used by the English paper, with English labels |
 
-**The author block has been removed from this copy.** The published versions carry the author's
-name, affiliation and contact address; this repository ships the technical content without them.
-The body text, equations, tables, figures and reference list are otherwise identical to the
-submitted manuscript.
-
-## What the paper claims
+## What the paper covers
 
 * The pitch-moment height derivative `dM/dh` is strictly positive across the whole flight
   envelope (+1.06 to +14.90 N m/m), i.e. the height static stability is negative; a component-wise
